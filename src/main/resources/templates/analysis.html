@@ -1,0 +1,85 @@
+<div th:replace="header">...</div>
+
+<h1>Super Analysis Page</h1>
+
+<table>
+    <caption>Exceptional Metrics Table:</caption>
+
+    <tr>
+        <td></td>
+        <th scope="col" th:each="company : ${companies}" th:text="${company.key}">keyvalue</th>
+    </tr>
+
+    <tr scope="row">
+        <th>Company Profit</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getProfit()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Total Revenue</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getTotalRevenue()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Total Cost</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getTotalCost()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>SEM Impressions Mean</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getSemImpressionsMean()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>SEM CTR Mean</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getSemCtrMean()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>First Position Hit Percentage</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getFirstPositionHitPercentage()}+'%'">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>First Position CPC Ratio</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getFirstPositionCostRatio()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Second Position Hit Percentage</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getSecondPositionHitPercentage()}+'%'">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Second Position CPC Ratio</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getSecondPositionCostRatio()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Third Position Hit Percentage</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getThirdPositionHitPercentage()}+'%'">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Third Position CPC Ratio</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getThirdPositionCostRatio()}">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Behind Third Position Hit Percentage</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getBehindThirdPositionHitPercentage()}+'%'">keyvalue</td>
+    </tr>
+
+    <tr scope="row">
+        <th>Behind Third Position CPC Ratio</th>
+        <td th:each="company : ${companies}" th:text="${company.value.getBehindThirdPositionCostRatio()}">keyvalue</td>
+    </tr>
+
+</table>
+<table>
+    <tr th:each="sortedMap : ${sorted}">
+        <td th:text="${sorted}">keyvalue</td>
+    </tr>
+</table>
+<div th:replace="performance">...</div>
+<div th:replace="footer">...</div>
