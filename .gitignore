@@ -3,4 +3,3 @@ mvnw.cmd
 *.iml
 target
 .idea
-src/main/resources/uploadedFiles/*
