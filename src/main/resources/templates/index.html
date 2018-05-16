@@ -1,9 +1,11 @@
 <div th:replace="header">...</div>
 
-<h1>Spring Boot file upload example</h1>
-
+<div class="form-style-8">
+    <h2>Upload CSV file for Super Analysis</h2>
 <form method="POST" action="/upload" enctype="multipart/form-data">
     <input type="file" name="file" /><br/><br/>
     <input type="submit" value="Submit" />
 </form>
+</div>
+<script src="script.js"></script>
 <div th:replace="footer">...</div>

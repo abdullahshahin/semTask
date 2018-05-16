@@ -29,7 +29,7 @@ public class Home {
   @Autowired
   Parser CSVfileParser;
 
-  @Value("upload.path")
+  @Value("${upload.path}")
   private String uploadedFolderPath;
 
   @GetMapping("/")
@@ -46,6 +46,14 @@ public class Home {
     return "analysis";
   }
 
+  @RequestMapping({"/chart"})
+  public String chart(Model model, @RequestParam(value="fileName", required=true) String fileName) throws IOException {
+    List<KeywordSearch> keywordSearchList = CSVfileParser.extract(uploadedFolderPath + fileName);
+    Analyzer analyzer = new Analyzer(keywordSearchList);
+    model.addAttribute("companies", analyzer.calculateMetrics());
+    return "chart";
+  }
+
   @PostMapping("/upload")
   public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                  RedirectAttributes redirectAttributes) {
@@ -55,7 +63,7 @@ public class Home {
       return "redirect:uploadStatus";
     }
 
-    String fileName = new java.util.Date().getTime() + file.getOriginalFilename();
+    String fileName = new java.util.Date().getTime() + "_" + file.getOriginalFilename();
     try {
       byte[] bytes = file.getBytes();
 
@@ -65,6 +73,6 @@ public class Home {
       e.printStackTrace();
     }
 
-    return "redirect:/analysis?fileName="+fileName;
+    return "redirect:/chart?fileName="+fileName;
   }
 }

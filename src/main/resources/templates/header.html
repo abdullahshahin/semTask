@@ -1,9 +1,129 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/stylesheet.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer=""></script>
-    <script src="/script.js" defer=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" defer=""></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script type="text/javascript">
+        window.onload = function() {
+
+            $("#analysis").attr("href","analysis?fileName="+getParameterByName("fileName", ""));
+            ftechfromAPI(function(jsonResponse) {
+
+                var profitVsRevenueVsCost = new CanvasJS.Chart("chartContainer1");
+
+                profitVsRevenueVsCost.options.axisY = { prefix: "$"};
+                profitVsRevenueVsCost.options.title = { text: "Profit vs Revenue vs Cost" };
+
+                var profit = {
+                    type: "column",
+                    name: "Profit",
+                    showInLegend: true
+                };
+
+                var revenue = {
+                    type: "column",
+                    name: "Revenue",
+                    showInLegend: true
+                };
+
+                var cost = {
+                    type: "column",
+                    name: "Cost",
+                    showInLegend: true
+                };
+
+                profitVsRevenueVsCost.options.data = [];
+                profitVsRevenueVsCost.options.data.push(profit);
+                profitVsRevenueVsCost.options.data.push(revenue);
+                profitVsRevenueVsCost.options.data.push(cost);
+
+                profit.dataPoints = getChartData(jsonResponse, "profitNumber");
+                revenue.dataPoints = getChartData(jsonResponse, "totalRevenueNumber");
+                cost.dataPoints = getChartData(jsonResponse, "totalCostNumber");
+
+
+                var firstvsSecondvsThirdvsBehindCPC = new CanvasJS.Chart("chartContainer2");
+
+                firstvsSecondvsThirdvsBehindCPC.options.axisY = { prefix: "$"};
+                firstvsSecondvsThirdvsBehindCPC.options.title = { text: "Mean Positions CPC Cost" };
+
+                var first = {
+                    type: "column",
+                    name: "First",
+                    showInLegend: true
+                };
+
+                var second = {
+                    type: "column",
+                    name: "Second",
+                    showInLegend: true
+                };
+
+                var third = {
+                    type: "column",
+                    name: "third",
+                    showInLegend: true
+                };
+
+                var behindThird = {
+                    type: "column",
+                    name: "Behind Third",
+                    showInLegend: true
+                };
+
+                firstvsSecondvsThirdvsBehindCPC.options.data = [];
+                firstvsSecondvsThirdvsBehindCPC.options.data.push(first);
+                firstvsSecondvsThirdvsBehindCPC.options.data.push(second);
+                firstvsSecondvsThirdvsBehindCPC.options.data.push(third);
+                firstvsSecondvsThirdvsBehindCPC.options.data.push(behindThird);
+
+                first.dataPoints = getChartData(jsonResponse, "firstPositionCostRatioNumber");
+                second.dataPoints = getChartData(jsonResponse, "secondPositionCostRatioNumber");
+                third.dataPoints = getChartData(jsonResponse, "thirdPositionCostRatioNumber");
+                behindThird.dataPoints = getChartData(jsonResponse, "behindThirdPositionCostRatioNumber");
+
+                var impressionsVsCTR = new CanvasJS.Chart("chartContainer3");
+
+                impressionsVsCTR.options.title = { text: "Impressions vs CTR" };
+
+                var impressions = {
+                    type: "splineArea",
+                    name: "Impressions per Keyword",
+                    showInLegend: true
+                };
+
+                var ctr = {
+                    type: "splineArea",
+                    name: "CTR per Keyword",
+                    showInLegend: true
+                };
+
+                impressionsVsCTR.options.data = [];
+                impressionsVsCTR.options.data.push(impressions);
+                impressionsVsCTR.options.data.push(ctr);
+
+                impressions.dataPoints = getChartData(jsonResponse, "semImpressionsMean");
+                ctr.dataPoints = getChartData(jsonResponse, "semCtrMean");
+
+
+                profitVsRevenueVsCost.render();
+                firstvsSecondvsThirdvsBehindCPC.render();
+                impressionsVsCTR.render();
+
+
+                $("#tabs").tabs({
+                    create: function (event, ui) {
+                        //Render Charts after tabs have been created.
+                        $("#chartContainer1").CanvasJSChart(profitVsRevenueVsCost);
+                        $("#chartContainer2").CanvasJSChart(firstvsSecondvsThirdvsBehindCPC);
+                        $("#chartContainer3").CanvasJSChart(impressionsVsCTR);
+                    },
+                    activate: function (event, ui) {
+                        //Updates the chart to its container size if it has changed.
+                        ui.newPanel.children().first().CanvasJSChart().render();
+                    }
+                });
+            });
+        }
+    </script>
 </head>
 <body>

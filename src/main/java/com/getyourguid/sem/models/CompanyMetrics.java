@@ -129,4 +129,28 @@ public class CompanyMetrics {
   public int getProfitNumber() {
     return profit;
   }
+
+  public float getTotalRevenueNumber() {
+    return totalRevenue;
+  }
+
+  public float getTotalCostNumber() {
+  return totalCost;
+}
+
+  public float getFirstPositionCostRatioNumber() {
+  return firstPositionCostRatio;
+}
+
+  public float getSecondPositionCostRatioNumber() {
+  return secondPositionCostRatio;
+}
+
+  public float getThirdPositionCostRatioNumber () {
+  return thirdPositionCostRatio;
+}
+
+  public float getBehindThirdPositionCostRatioNumber() {
+  return behindThirdPositionCostRatio;
+}
 }

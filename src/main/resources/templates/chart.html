@@ -1,0 +1,23 @@
+<div th:replace="header">...</div>
+<div id="tabs" style="height: 360px">
+    <ul>
+        <li ><a href="#tabs-1" style="font-size: 12px">Profit vs Revenue vs Cost</a></li>
+        <li ><a href="#tabs-2"  style="font-size: 12px">CPC per position</a></li>
+        <li ><a href="#tabs-3"  style="font-size: 12px">Impressions vs CTR</a></li>
+        <li><a id="analysis" style="font-size: 12px">Numbers Table</a></li>
+    </ul>
+    <div id="tabs-1" style="height: 300px">
+        <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+    </div>
+    <div id="tabs-2" style="height: 300px">
+        <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+    </div>
+    <div id="tabs-3" style="height: 300px">
+        <div id="chartContainer3" style="height: 300px; width: 100%;"></div>
+    </div>
+</div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery-ui.1.11.2.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="script.js"></script>
+<div th:replace="footer">...</div>
