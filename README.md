@@ -54,10 +54,6 @@ your IDE:
 
     mvn spring-boot:run
 
-or:
-
-    mvn exec:exec
-
 Open a browser and visit [http://localhost:8080/](http://localhost:8080/)
 
 
